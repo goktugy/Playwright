@@ -40,7 +40,7 @@ export default defineConfig({
   projects: [
     {
       name: 'chromium',
-      use: { headless: false,
+      use: { headless: true,
       video : 'on',
       screenshot: 'only-on-failure',    
       ...devices['Desktop Chrome'],
@@ -54,7 +54,7 @@ export default defineConfig({
     {
       name: 'firefox',
       use: { 
-        headless: false,
+        headless: true,
         ...devices['Desktop Firefox'] },
     }
 
