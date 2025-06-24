@@ -23,6 +23,8 @@ jobs:
         npx allure generate ./allure-results --clean
     - name: Run Playwright tests
       run: npx playwright test
+    - name: Create Allure Report
+      run: npx allure generate ./allure-results --clean
     - uses: actions/upload-artifact@v4
       if: ${{ !cancelled() }}
       with:
