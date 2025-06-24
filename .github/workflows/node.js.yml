@@ -17,6 +17,10 @@ jobs:
       run: npm ci
     - name: Install Playwright Browsers
       run: npx playwright install --with-deps
+    - name: Install Allure reports
+      run: |
+        npm install -D allure-commandline
+        npx allure generate ./allure-results --clean
     - name: Run Playwright tests
       run: npx playwright test
     - uses: actions/upload-artifact@v4
@@ -24,4 +28,10 @@ jobs:
       with:
         name: playwright-report
         path: playwright-report/
+    - uses: actions/upload-artifact@v4
+      if: ${{ !cancelled() }}
+      with:
+      name: playwright-allure
+      path: allure-report/
+      retention-days: 30
         retention-days: 30
