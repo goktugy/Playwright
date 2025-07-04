@@ -34,13 +34,13 @@ jobs:
     - uses: actions/upload-artifact@v4
       if: ${{ !cancelled() }}
       with:
-        name: playwright-report
+        name: playwright-report_${{ strategy.job-index }}
         path: playwright-report/
         retention-days: 30
     - uses: actions/upload-artifact@v4
       if: ${{ !cancelled() }}
       with:
-        name: playwright-allure
+        name: playwright-allure_${{ strategy.job-index }}
         path: allure-report/
         retention-days: 30
   merge-reports:
@@ -49,21 +49,21 @@ jobs:
     needs: [test]
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
-    - uses: actions/setup-node@v3
+    - uses: actions/checkout@v4
+    - uses: actions/setup-node@v4
       with:
         node-version: 18
     - name: Install dependencies
       run: npm ci
     - name: Download blob reports from GitHub Actions Artifacts
-      uses: actions/download-artifact@v3
+      uses: actions/download-artifact@v4
       with:
         name: blob-report
         path: blob-report
     - name: Merge into HTML Report
       run: npx playwright merge-reports --reporter html ./blob-report
     - name: Upload HTML report
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: html-report--attempt-${{ github.run_attempt }}
         path: blob-report
