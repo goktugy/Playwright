@@ -25,7 +25,8 @@ export default defineConfig({
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   reporter: [
         ['html'],
-        ['allure-playwright']
+        ['allure-playwright'],
+        ['blob']
       ],
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
@@ -40,7 +41,7 @@ export default defineConfig({
   projects: [
     {
       name: 'chromium',
-      use: { headless: true,
+      use: { headless: false,
       video : 'on',
       screenshot: 'only-on-failure',    
       ...devices['Desktop Chrome'],
@@ -54,7 +55,7 @@ export default defineConfig({
     {
       name: 'firefox',
       use: { 
-        headless: true,
+        headless: false,
         ...devices['Desktop Firefox'] },
     }
 
