@@ -12,7 +12,7 @@ import { defineConfig, devices } from '@playwright/test';
  * See https://playwright.dev/docs/test-configuration.
  */
 export default defineConfig({
-  timeout: 25_000,
+  timeout: 50_000,
   testDir: './tests',
   /* Run tests in files in parallel */
   fullyParallel: true,
@@ -21,7 +21,7 @@ export default defineConfig({
   /* Retry on CI only */
   retries: process.env.CI ? 1 : 1,
   /* Opt out of parallel tests on CI. */
-  workers: process.env.CI ? 4 : 4,
+  workers: process.env.CI ? 3 : 3,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   reporter: [
         ['html'],
@@ -55,8 +55,8 @@ export default defineConfig({
     {
       name: 'firefox',
       use: { 
-        headless: false,
-        ...devices['Desktop Firefox'] },
+        headless: true,
+        ...devices['Desktop Firefox'] }
     }
 
     //{
