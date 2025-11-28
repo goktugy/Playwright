@@ -1,8 +1,8 @@
 # Playwright
 
-This is a simple repo that shows the different features of Playwright test automation framework from Microsoft
+This is a simple repo that shows the different features of Playwright test automation framework.
 The following reference manuals on Playwright: https://playwright.dev/docs/intro are also available.
-Some of the features are:
+Some of the features that are used in this sample test automation are:
 
 <ul>
  <li>Test Only </li>
