@@ -1,5 +1,4 @@
 import {test, expect} from '@playwright/test';
-import * as path from 'path';
 
 
 test.beforeEach (async ({page, browser}) => {
@@ -24,7 +23,7 @@ test.describe.parallel("Testing Livescore Page", async () => {
 
             await SpainSelection.click()
 
-            await browser.stopTracing({path:`${testName}_trace.json`})
+            await browser.stopTracing()
 
          })
             

@@ -6,6 +6,7 @@
       }
     },
     "compilerOptions": {
-      "module": "esnext" // tsc will continue to use these options
+      "module": "nodenext", // tsc will continue to use these options
+      "moduleResolution": "nodenext"
     }
   }
