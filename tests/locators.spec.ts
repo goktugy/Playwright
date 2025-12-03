@@ -15,7 +15,7 @@ test.describe.parallel("Testing Livescore Page", async () => {
         test.skip( browserName === "firefox")
 
         await test.step("Click Spain From Main Page", async () => {
-            const SpainSelection =  await page.getByText('Spain').first()
+            const SpainSelection =  await page.getByText('Spain').nth(2)
 
             const testName = await testInfo.title
        
@@ -43,7 +43,7 @@ test.describe.parallel("Testing Livescore Page", async () => {
 
     test('Go To La Liga Selection In Spain', {tag: ['@smoke' , '@Release']}, async({page}) => {
 
-        const SpainSelection =  await page.getByText('Spain').first()
+        const SpainSelection =  await page.getByText('Spain').nth(2)
 
         await SpainSelection.click()
 
