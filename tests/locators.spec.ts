@@ -5,7 +5,7 @@ test.beforeEach (async ({page, browser}) => {
 
     await page.goto("/", {waitUntil: "domcontentloaded"});
 
-    await expect.soft(page).toHaveURL("https:/edition.cnn.com");
+    await expect.soft(page).toHaveURL("https:/www.cnn.com");
 })
 
 test.describe.parallel("Testing CNN Page", async () => {
