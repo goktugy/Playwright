@@ -5,67 +5,81 @@ test.beforeEach (async ({page, browser}) => {
 
     await page.goto("/", {waitUntil: "domcontentloaded"});
 
-    await expect.soft(page).toHaveURL("https://www.livescore.com/en/");
+    await expect.soft(page).toHaveURL("https:/edition.cnn.com");
 })
 
-test.describe.parallel("Testing Livescore Page", async () => {
+test.describe.parallel("Testing CNN Page", async () => {
     
-    test('Go To Spain', async({page, browserName, browser}, testInfo) => {
+    test('Go To CNN', async({page, browserName, browser}, testInfo) => {
 
         test.skip( browserName === "firefox")
 
-        await test.step("Click Spain From Main Page", async () => {
-            const SpainSelection =  await page.getByText('Spain').nth(2)
-
+        await test.step("Click CNN Logo From Main Page", async () => {
+  
             const testName = await testInfo.title
+            
+            const cnnSelection= await page.locator('#pageHeader').getByRole('link', { name: 'CNN logo' })
+          
+            await cnnSelection.click()
        
             await browser.startTracing(page, {path:`${testName}_trace.json`})
 
-            await SpainSelection.click()
-
+            await expect(page.getByRole('link', { name: 'US', exact: true })).toBeVisible()  
+                
             await browser.stopTracing()
 
          })
             
-         await test.step("Check That La Liga Selection In Spain Is Available Without Clicking", async () => {
+         await test.step("Check That Worlds Section Is Visible Without Clicking", async () => {
           
                     
-            const LaLiga = await page.getByRole('link', { name: 'LaLiga LaLiga' });
+            const worldNews = await page.getByRole('link', { name: 'World' }).first()
   
-            await expect(LaLiga).toBeVisible()
-            await expect(LaLiga).toContainText('LaLiga');
+            await expect(worldNews).toBeVisible()
+            await expect(worldNews).toContainText('World');
 
 
         })
-          
 
     })
 
-    test('Go To La Liga Selection In Spain', {tag: ['@smoke' , '@Release']}, async({page}) => {
+    test('Go To Travel Selection In CNN', {tag: ['@smoke' , '@Release']}, async({page}) => {
 
-        const SpainSelection =  await page.getByText('Spain').nth(2)
-
-        await SpainSelection.click()
-
-        const LaLiga = await page.getByRole('link', { name: 'LaLiga LaLiga' });
-        await LaLiga.click();
-        await expect(page).toHaveTitle("Spain LaLiga Live Scores | Football");
+        
+        await page.locator('#pageHeader').getByRole('link', { name: 'Travel' }).click();
+        await expect(page.getByRole('link', { name: 'Destinations', exact: true })).toBeVisible();
 
     })      
 
     test('ARIA Snapchat', {tag: ['@smoke' , '@Release']}, async({page, browserName}) => {
 
         test.skip( browserName === "firefox")
-
         await test.step("Performing Aria Snapshot Verification", async () => {
-            await expect(page.locator('#content')).toMatchAriaSnapshot(`
-          - link "Football"
-          - link "Hockey"
-          - link "Basketball"
-          - link "Tennis"
-          - link "Cricket"
-          `);    
-         
+          await expect(page.locator('#pageHeader')).toMatchAriaSnapshot(`
+          - button "Open Menu Icon":
+            - img
+          - link "CNN logo":
+            - /url: https://edition.cnn.com
+            - img
+          - navigation:
+            - link "US":
+              - /url: https://edition.cnn.com/us
+            - link "World":
+              - /url: https://edition.cnn.com/world
+            - link "Politics":
+              - /url: https://edition.cnn.com/politics
+            - link "Business":
+              - /url: https://edition.cnn.com/business
+            - link "Health":
+              - /url: https://edition.cnn.com/health
+            - link "Entertainment":
+              - /url: https://edition.cnn.com/entertainment
+            - link "Style":
+              - /url: https://edition.cnn.com/style
+            - link "Travel":
+              - /url: https://edition.cnn.com/travel
+            - text: More
+          `);
         })
  
     })
